@@ -6,16 +6,22 @@ class Api::IncentivesController < ApplicationController
     render json: @incentives.to_json
   end
 
+  def create
+    @incentive = Incentive.create!(incentive_params)
+    
+    render json: @incentive.to_json
+  end
+  
   def update
     @incentive = Incentive.find(params[:id])
-
-    @incentive.update!(update_params)
+    
+    @incentive.update!(incentive_params)
     render json: @incentive.to_json
   end
 
   private
 
-  def update_params
-    params.require(:incentive).permit(:code)
+  def incentive_params
+    params.require(:incentive).permit(:code, :redeemed)
   end
 end

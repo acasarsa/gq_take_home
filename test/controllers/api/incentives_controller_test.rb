@@ -30,4 +30,19 @@ class Api::IncentivesControllerTest < ActionDispatch::IntegrationTest
       assert_equal 'FOOBAR', incentive.reload.code
     end
   end
+
+  describe 'POST #create' do
+    subject { post api_incentives_path, params: { incentive: {code: code} } }
+    
+    let(:code) {'Summer25!'}
+    
+    it 'should create a new incentive' do
+      previous_count = Incentive.count
+      subject
+      assert_response :success
+      new_count = Incentive.count
+      new_count - 1 == previous_count
+      Incentive.last.code == code
+    end
+  end
 end
