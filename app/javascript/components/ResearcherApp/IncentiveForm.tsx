@@ -12,6 +12,7 @@ export const IncentiveForm: React.FC<Props> = ({ id, code, redeemed }) => {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
   const [inputValue, setInputValue] = useState(code);
+  const [isRedeemed, setIsRedeemed] = useState(redeemed)
 
   async function handleClickSave() {
     setSaving(true);
@@ -25,24 +26,41 @@ export const IncentiveForm: React.FC<Props> = ({ id, code, redeemed }) => {
     setSaving(false);
   }
 
+  const renderButton = () => {
+    if (isRedeemed == false) {
+      return (
+        <button
+        disabled={saving}
+        className="hover:bg-gray-100 bg-gray-200 rounded-md px-4 py-2"
+        onClick={handleClickSave}
+      >
+        Save
+      </button>
+      ) 
+    } else {
+      return (
+        <div
+        className="bg-gray-200 rounded-md px-4 py-2 text-red-600"
+      >
+        Redeemed!
+      </div>
+      ) 
+    }
+
+  }
+
   return (
     <div>
       <div className="flex space-x-2 pb-4">
         <input
-          disabled={saving}
+          disabled={saving || isRedeemed == true}
           className="text-xl border"
           type="text"
           name="incentive_code"
           value={inputValue}
           onChange={e => setInputValue(e.currentTarget.value)}
         />
-        <button
-          disabled={saving}
-          className="hover:bg-gray-100 bg-gray-200 rounded-md px-4 py-2"
-          onClick={handleClickSave}
-        >
-          Save
-        </button>
+        {renderButton()}
       </div>
       {message && <div className="text-gray-600 italic">{message}</div>}
     </div>
