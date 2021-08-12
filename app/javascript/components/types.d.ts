@@ -6,4 +6,7 @@ interface Model {
 
 interface Incentive extends Model {
   code: string;
+  redeemed?: boolean;
+  id: number;
 }
+

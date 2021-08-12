@@ -3,16 +3,19 @@ import { useState } from 'react';
 import { updateIncentive } from '@api/endpoints';
 
 interface Props {
-  data: Incentive[];
+  code: string;
+  redeemed: boolean;
+  id: number;
 }
-export const IncentiveForm: React.FC<Props> = ({ data }) => {
+
+export const IncentiveForm: React.FC<Props> = ({ id, code, redeemed }) => {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
-  const [inputValue, setInputValue] = useState(data[0].code);
+  const [inputValue, setInputValue] = useState(code);
 
   async function handleClickSave() {
     setSaving(true);
-    const incentive = await updateIncentive(data[0].id, { code: inputValue });
+    const incentive = await updateIncentive(id, { code: inputValue });
     if (incentive) {
       setMessage('Successfully updated!');
       setTimeout(() => setMessage(''), 2000);
