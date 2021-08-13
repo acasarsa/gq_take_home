@@ -13,8 +13,9 @@ export const ResearcherApp: React.FC = () => {
         setData(incentives);
         setLoading(false);
       });
-  }, []);
+  }, [data]);
 
+  let sortedData = data.sort((a, b) => b.id - a.id)
 // NOTES: 
 // user should see all coupon codes currently set up √
 // user should be able to update those codes √
@@ -29,7 +30,7 @@ export const ResearcherApp: React.FC = () => {
       {loading && <span>Loading...</span>}
 
       {!loading && <IncentiveForm />}
-      {!loading && data.map((incentive, i) => 
+      {!loading && sortedData.map((incentive, i) => 
         <IncentiveForm
           key={incentive.id}
           id={incentive.id}
