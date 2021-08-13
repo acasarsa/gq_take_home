@@ -18,3 +18,15 @@ export const updateIncentive = async (id: number, params: Partial<Incentive>): P
   }
   return null;
 };
+
+export const createIncentive = async(params: CreateNewIncentive): Promise<CreateNewIncentive> => {
+  const resp = await fetch('/api/incentives', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(params)
+  });
+  if (resp.ok) {
+    return await resp.json();
+  }
+  return null;  
+}

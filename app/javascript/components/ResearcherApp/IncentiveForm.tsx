@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { updateIncentive } from '@api/endpoints';
+import { updateIncentive, createIncentive} from '@api/endpoints';
 
 interface Props {
-  code: string;
-  redeemed: boolean;
-  id: number;
+  code?: string;
+  redeemed?: boolean;
+  id?: number;
 }
 
 export const IncentiveForm: React.FC<Props> = ({ id, code, redeemed }) => {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
-  const [inputValue, setInputValue] = useState(code);
+  const [inputValue, setInputValue] = code ? useState(code) : useState('');
   const [isRedeemed, setIsRedeemed] = useState(redeemed)
 
   async function handleClickSave() {
     setSaving(true);
-    const incentive = await updateIncentive(id, { code: inputValue });
+    const incentive = id ? await updateIncentive(id, { code: inputValue }) : await createIncentive({ code: inputValue });
     if (incentive) {
       setMessage('Successfully updated!');
       setTimeout(() => setMessage(''), 2000);
@@ -27,14 +27,14 @@ export const IncentiveForm: React.FC<Props> = ({ id, code, redeemed }) => {
   }
 
   const renderButton = () => {
-    if (isRedeemed == false) {
+    if (isRedeemed == false || isRedeemed == null) {
       return (
         <button
-        disabled={saving}
-        className="hover:bg-gray-100 bg-gray-200 rounded-md px-4 py-2"
-        onClick={handleClickSave}
+          disabled={saving}
+          className="hover:bg-gray-100 bg-gray-200 rounded-md px-4 py-2"
+          onClick={handleClickSave}
       >
-        Save
+        {id ? "Update" : "Add New Incentive"}
       </button>
       ) 
     } else {
