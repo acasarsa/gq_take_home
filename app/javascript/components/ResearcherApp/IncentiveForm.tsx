@@ -20,8 +20,10 @@ export const IncentiveForm: React.FC<Props> = ({ id, code, redeemed }) => {
     if (incentive) {
       setMessage('Successfully updated!');
       setTimeout(() => setMessage(''), 2000);
+    } else if (inputValue.length == 0 || !inputValue.trim()) {
+      setMessage('Incentive code cannot be blank!');
     } else {
-      setMessage('An error occured');
+      setMessage('An error ocurred');
     }
     setSaving(false);
     setInputValue('')
