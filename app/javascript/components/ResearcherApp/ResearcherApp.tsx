@@ -16,11 +16,6 @@ export const ResearcherApp: React.FC = () => {
   }, [data]);
 
   let sortedData = data.sort((a, b) => b.id - a.id)
-// NOTES: 
-// user should see all coupon codes currently set up √
-// user should be able to update those codes √
-// if code is redeemed make button say redeemed and/or grey it out so user can't update it anymore √
-// TODO: researcher can create a new code √
 
   return (
     <div className="px-12 py-6">

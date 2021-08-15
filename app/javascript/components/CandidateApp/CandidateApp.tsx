@@ -5,12 +5,12 @@ import { Redeem } from './Redeem';
 
 export const CandidateApp: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<Incentive[]>(null);
+  const [data, setData] = useState<Incentive[]>([]);
 
   useEffect(() => {
     getIncentives()
       .then(incentives => {
-        setData(incentives);
+        setData(incentives)
         setLoading(false);
       });
   }, []);
@@ -21,7 +21,7 @@ export const CandidateApp: React.FC = () => {
 
       {loading && <span>Loading...</span>}
 
-      {!loading && <Redeem data={data} />}
+      {!loading && <Redeem data={data}/>}
     </div>
   );
 };
