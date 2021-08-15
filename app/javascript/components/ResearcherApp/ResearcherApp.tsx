@@ -13,7 +13,7 @@ export const ResearcherApp: React.FC = () => {
         setData(incentives);
         setLoading(false);
       });
-  }, [data]);
+  }, []);
 
   let sortedData = data.sort((a, b) => b.id - a.id)
 

@@ -1,5 +1,12 @@
 # Great Question Take Home Exercise
 
+## Decisions
+
+After our email exchange regarding what codes a candidate has access to I decided to allow the researcher to create multiple incentives of the same name since that might be something a research would want to do and the candidate will still only have access to the codes created by the researcher. An alternative approach would be to make each code a random generated hex value that the research cannot edit. I opted against this route based on the fact that the existing code base included an update option and I wanted to allow the researcher control over the incentive name. 
+
+If I had more time I would add in either a Context since it's a pretty slim app or a Redux state store
+
+This was one of the deeper looks into Typescript that I've taken so that was fun to navigate and I am excited about learning more. 
 ## The problem
 
 Incentive Redeeming.
