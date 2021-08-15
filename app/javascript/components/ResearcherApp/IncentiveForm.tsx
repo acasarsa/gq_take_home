@@ -16,7 +16,7 @@ export const IncentiveForm: React.FC<Props> = ({ id, code, redeemed }) => {
 
   async function handleClickSave() {
     setSaving(true);
-    const incentive = id ? await updateIncentive(id, { code: inputValue }) : await createIncentive({ code: inputValue }) ;
+    const incentive = id ? await updateIncentive(id, { code: inputValue }) : await createIncentive({ code: inputValue });
     if (incentive) {
       setMessage('Successfully updated!');
       setTimeout(() => setMessage(''), 2000);
@@ -24,6 +24,7 @@ export const IncentiveForm: React.FC<Props> = ({ id, code, redeemed }) => {
       setMessage('An error occured');
     }
     setSaving(false);
+    setInputValue('')
   }
 
   const renderButton = () => {
