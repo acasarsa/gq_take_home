@@ -1,14 +1,15 @@
 import * as React from 'react';
-import { useState, useEffect} from 'react';
+import { useState} from 'react';
 import { updateIncentive, createIncentive} from '@api/endpoints';
 
 interface Props {
   code?: string;
   redeemed?: boolean;
   id?: number;
+  handleAddNewIncentive?: (incentive: any) => void;
 }
 
-export const IncentiveForm: React.FC<Props> = ({ id, code, redeemed}) => {
+export const IncentiveForm: React.FC<Props> = ({ id, code, redeemed, handleAddNewIncentive}) => {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
   const [inputValue, setInputValue] = code ? useState(code) : useState('');
@@ -16,23 +17,21 @@ export const IncentiveForm: React.FC<Props> = ({ id, code, redeemed}) => {
 
   async function handleClickSave() {
     setSaving(true);
-      const incentive = id ? await updateIncentive(id, { code: inputValue }) : await createIncentive({ code: inputValue })
-      id ? setInputValue(inputValue) : setInputValue('')
-      if (incentive) {
-        setMessage('Successfully updated!');
-        setTimeout(() => setMessage(''), 2000);
+    const incentive = id ? await updateIncentive(id, { code: inputValue }) : await createIncentive({ code: inputValue })
 
-      } else if (inputValue.length == 0 || !inputValue.trim()) {
-        setMessage('Incentive code cannot be blank!');
-      } else {
-        setMessage('An error ocurred');
-      }
+    id ? setInputValue(inputValue) : setInputValue('')
+
+    if (incentive) {
+      setMessage('Successfully updated!');
+      setTimeout(() => setMessage(''), 2000);
+      id ? null : handleAddNewIncentive(incentive)
+    } else if (inputValue.length == 0 || !inputValue.trim()) {
+      setMessage('Incentive code cannot be blank!');
+    } else {
+      setMessage('An error ocurred');
+    }
     setSaving(false);
   }
-
-  useEffect(() => {
-    
-  }, [code])
 
   const renderButton = () => {
     if (isRedeemed == false || isRedeemed == null) {

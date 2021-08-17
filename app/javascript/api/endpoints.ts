@@ -26,7 +26,7 @@ export const createIncentive = async(params: CreateNewIncentive): Promise<Create
     body: JSON.stringify(params)
   });
   if (resp.ok) {
-    return await resp.json();
+    return await resp.json()
   }
-  return null;  
+  return null;
 }
