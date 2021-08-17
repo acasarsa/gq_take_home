@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { getIncentives } from '@api/endpoints';
 import { IncentiveForm } from './IncentiveForm';
 
+
 export const ResearcherApp: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<Incentive[]>([]);
@@ -15,6 +16,10 @@ export const ResearcherApp: React.FC = () => {
       });
   }, []);
 
+  const handleAddNewIncentive = (newIncentive) => {
+    setData([...data, newIncentive])
+  }
+
   let sortedData = data.sort((a, b) => b.id - a.id)
 
   return (
@@ -24,7 +29,7 @@ export const ResearcherApp: React.FC = () => {
 
       {loading && <span>Loading...</span>}
 
-      {!loading && <IncentiveForm />}
+      {!loading && <IncentiveForm handleAddNewIncentive={handleAddNewIncentive}/>}
       {!loading && sortedData.map((incentive, i) => 
         <IncentiveForm
           key={incentive.id}
